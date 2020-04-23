@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="card col-md-6 m-auto p-md-5 p-3">
+        <h1 class="text-center" style="font-weight: 300;">Login</h1>
+        <hr>
+        {% for message in messages %}
+        {% if message.tags %}
+          
+        {% endif %}
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger">
+            <a>{{message}}</a>
+        </div>
+        {% endif %}
+        {% if message.tags == 'warning' %}
+        <div class="alert alert-warning">
+            <a>{{message}}</a>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <a style="font-weight: 300;">Username</a>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" class="form-control"><br>
+            <a style="font-weight: 300;">Password</a>
+            <input type="password" name="password" class="form-control"><br>
+            <button type="submit" class="btn btn-primary d-flex mr-0 ml-auto">Login</button>
+        </form>
+        <br>
+        <p class="mb-0 text-center" style="font-size: small;">If you don't have an account, You can create one <a href="{% url 'register' %}">here.</a></p>
+        <hr>
+        <p class="text-muted text-center">If you have any issues with loggin in, Please contact the system
+            administrator. <br>
+            <p style="font-size: small;" class="text-center">
+                Your account might not be activated if your payment is still pending. Also, make sure to inform the
+                admin to activate your account after the completing the payment.</p>
+        </p>
+    </div>
+</div>
+{% endblock content %}

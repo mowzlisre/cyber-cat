@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  
+<div class="card p-3 p-md-5">
+    <h1 class="display-3 d-none d-md-inline">Cyber Cat</h1>
+    <h1 class="d-md-none" style="font-weight: 300;">Cyber Cat</h1>
+    <hr>
+    <p>
+        Cyber Cat is a private platform where programming languages like C, C++, Python, Java and much more are taught by 
+        other peoples who are equally interested in making programming to reach a wide scope of peoples. It is
+        common that people use to get bored on forcing themselves to learn a language. Firstly, it takes time to understand
+        the concepts of how the language exactly works. This problem is minimalized when the learners are taught by experts who are mentally
+        connected with them. So here in Cyber Cat, though we aren't experts in handling production level programming languages, we
+        strive to make you to understand the basic concepts the languages you learn.
+    </p>
+</div>
+<br>
+<div class="row m-0">
+    {% for subject in subjects %}
+    <a href="{% url 'subject' pk=subject.sub_name %}" class="card col-md p-md-5 p-3 mb-3 mx-2 text-dark" style="text-decoration: none;">
+        <h1 class="display-4">{{subject.name}}</h1>
+        <hr>
+        {{subject.description}}
+        <hr>
+        <em>by {{subject.author}}</em>
+    </a>
+    {% endfor %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card p-md-5 py-2 px-4 border-0 shadow">
+    <h1 class="display-1">{{subject.name}}
+    </h1>
+    <hr>
+    <p>{{subject.description|safe}}</p>
+</div>
+<br>
+<div class="row">
+    <div class="col p-md-3">
+        <div class="card p-3 p-md-5">
+            <h2 style="font-weight: 300;">{{tutorial.chapter}}
+            </h2>
+            <hr>
+            <p class="text-muted"><em>- {{subject.author}}</em>, on {{tutorial.timestamp|date:"dS M, Y"}}</p>
+            <br>
+            {{tutorial.content|safe}}
+        </div>
+    </div>
+    <div class="col-md-3 p-3" style="background-color: aliceblue;">
+
+        <div class="mb-2">Tutorials on:</div>
+        {% for sub in subjects %}
+        <div class="border-bottom mb-1">
+            <a href="{% url 'subject' pk=sub.sub_name %}">{{sub}}</a>
+        </div>
+        {% for tut in sub.tutorials.all %}
+        {% if forloop.counter0 < 10 %}
+        <div class="mb-1">
+            <a href="{% url 'tutorial' pk=sub.sub_name id=tut.id %}" class="ml-3">{{tut.chapter|truncatechars:20}}</a>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <br>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+{% endblock content %}

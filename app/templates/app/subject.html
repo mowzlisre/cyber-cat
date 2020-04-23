@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card p-md-5 py-2 px-4 border-0 shadow">
+    <h1 class="display-1">{{subject.name}}
+    </h1>
+    <hr>
+    <p>{{subject.description|safe}}</p>
+</div>
+{% for message in messages %}
+{% if message.tag == 'success' %}
+<div class="alert alert-success">
+    <a>{{message}}</a>
+</div>
+{% endif %}
+{% if message.tag == 'error' %}
+<div class="alert alert-danger">
+    <a>{{message}}</a>
+</div>  
+{% endif %}
+{% if message.tag == 'primary' %}
+<div class="alert alert-primary">
+    <a>{{message}}</a>
+</div>  
+{% endif %}
+{% endfor %}
+<br>
+<div class="row">
+    <div class="col p-md-3">
+        <h1 class="display-4">Tutorials</h1>
+        <hr>
+        <p class="text-muted">Click the below links to navigate to the respective tutorials</p>
+        <table class="table table-striped">
+            <tbody>
+                {% for tutorial in subject.tutorials.all %}
+                <tr>
+                    <th scope="row" style="font-weight: 400;"><i class="fa fa-check mx-3 mr-md-5"></i><a
+                            href="{% url 'tutorial' pk=subject.sub_name id=tutorial.id %}">{{tutorial.chapter|truncatechars:100}}</a>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-md-3 p-3" style="background-color: aliceblue;">
+
+        <div class="mb-2">Tutorials on:</div>
+        {% for sub in subjects %}
+        <div class="border-bottom mb-1">
+            <a href="{% url 'subject' pk=sub.sub_name %}">{{sub}}</a>
+        </div>
+        {% for tut in sub.tutorials.all %}
+        <div class="mb-1">
+            <a href="{% url 'tutorial' pk=sub.sub_name id=tut.id %}" class="ml-3">{{tut.chapter|truncatechars:20}}</a>
+        </div>
+        {% endfor %}
+        <br>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock content %}
